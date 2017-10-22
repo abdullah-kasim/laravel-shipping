@@ -1,0 +1,19 @@
+{
+    "name": "abdullah-kasim/laravel-shipping",
+    "description": "Proof of concept of a package for parcel shipping",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Abdullah Kasim",
+            "email": "abdullah.kasim.123@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "AbdullahKasim\\LaravelShipping\\": "src"
+        }
+    },
+    "minimum-stability": "dev",
+    "require": {}
+}
