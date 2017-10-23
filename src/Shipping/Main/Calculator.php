@@ -31,8 +31,7 @@ class Calculator implements ICalculator
     {
         // Assume that we already have the ShipmentDetail mapping. Hence, this should be simple.
         // Let's find out where the item is. This will be the fromAddress.
-        $fromAddress = $item->address;
-        $shipmentDetails = ShipmentDetail::whereFromAddressId($fromAddress->id)
+        $shipmentDetails = ShipmentDetail::whereFromAddressId($item->address_id)
             ->whereToAddressId($toAddress->id)
             ->orderBy('cost')
             ->get();

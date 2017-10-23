@@ -32,3 +32,5 @@ $ php artisan vendor:publish --tag=migrations
 
 ## What to do after launch?
 - Allow multiple addresses per user.
+
+# What's needed for production-ready?

@@ -44,19 +44,19 @@ class User extends Eloquent
 		'remember_token'
 	];
 
-	public function customers()
+	public function customer()
 	{
-		return $this->hasMany(Customer::class);
+		return $this->hasOne(Customer::class);
 	}
 
-	public function merchants()
+	public function merchant()
 	{
-		return $this->hasMany(Merchant::class);
+		return $this->hasOne(Merchant::class);
 	}
 
-	public function shippers()
+	public function shipper()
 	{
-		return $this->hasMany(Shipper::class);
+		return $this->hasOne(Shipper::class);
 	}
 
 	public function addresses()
