@@ -46,10 +46,15 @@ class Address extends Eloquent
 		return $this->hasMany(Item::class);
 	}
 
-	public function shipment_details()
+	public function to_shipment_details()
 	{
 		return $this->hasMany(ShipmentDetail::class, 'to_address_id');
 	}
+
+    public function from_shipment_details()
+    {
+        return $this->hasMany(ShipmentDetail::class, 'from_address_id');
+    }
 
 	public function users()
 	{

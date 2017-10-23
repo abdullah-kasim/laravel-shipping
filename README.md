@@ -14,6 +14,12 @@ Guided by http://laraveldaily.com/how-to-create-a-laravel-5-package-in-10-easy-s
 - Each user will have an `address_id` - this shall be the closest match that the server found.
 - **Remember, KEEP IT SIMPLE FIRST!**
 
+
+# What can be overridden?
+- The models - that means we'll create a factory with options - the user will be able to provide their own models
+- The calculation method
+- 
+
 # DON'T DO THESE YET!
 - shopping cart
 

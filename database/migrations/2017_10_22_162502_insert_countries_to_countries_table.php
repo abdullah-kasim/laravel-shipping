@@ -269,7 +269,7 @@ QUERY;
     public function down()
     {
         Schema::table('countries', function (Blueprint $table) {
-            //
+            DB::table('countries')->delete();
         });
     }
 }
