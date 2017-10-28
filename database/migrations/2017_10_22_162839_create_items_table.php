@@ -21,6 +21,7 @@ class CreateItemsTable extends Migration
             $table->foreign('merchant_id')->references('id')->on('merchants')->onDelete('CASCADE');
             $table->foreign('address_id')->references('id')->on('addresses')->onDelete('CASCADE');
             $table->integer('stock');
+            $table->longText('meta');
             $table->softDeletes();
             $table->timestamps();
         });

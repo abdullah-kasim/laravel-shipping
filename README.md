@@ -1,27 +1,26 @@
 # laravel-shipping
 
+# Usage
+
+```bash
+# install the package
+
+```
+
+# dev
+
 If you need to do dev on this, create a laravel project, and put the root in -
 `packages/abdullahkasim/laravelshipping/`
 
 Guided by http://laraveldaily.com/how-to-create-a-laravel-5-package-in-10-easy-steps/
 
-# Plan
+# Next Plan
+- Use closest distance instead of exact matches.
 
-- Create API - param should be itemId, reply should be the shipping company with price
-- Each shipment company will have a `from_address_id` and `to_address_id` and the price
-- So we'll have `companies` `shipment_details` `addresses` `users` `items` `countries`
-- Each item will have an `address_id` - this shall be the closest match that the server found.
-- Each user will have an `address_id` - this shall be the closest match that the server found.
-- **Remember, KEEP IT SIMPLE FIRST!**
+# Won't implement
+- shopping cart 
 
 
-# What can be overridden?
-- The models - that means we'll create a factory with options - the user will be able to provide their own models
-- The calculation method
-- 
-
-# DON'T DO THESE YET!
-- shopping cart
 
 # Commands
 
@@ -29,8 +28,6 @@ Guided by http://laraveldaily.com/how-to-create-a-laravel-5-package-in-10-easy-s
 $ php artisan vendor:publish --tag=migrations
 ```
 
+# Coding standards
 
-## What to do after launch?
-- Allow multiple addresses per user.
-
-# What's needed for production-ready?
+Use http://www.php-fig.org/bylaws/psr-naming-conventions/ except for the namespace prefix

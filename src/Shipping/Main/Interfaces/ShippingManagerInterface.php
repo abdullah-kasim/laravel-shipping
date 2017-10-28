@@ -9,17 +9,17 @@
 namespace AbdullahKasim\LaravelShipping\Shipping\Main\Interfaces;
 
 
-use AbdullahKasim\LaravelShipping\Models\Interfaces\IShipmentDetail;
+use AbdullahKasim\LaravelShipping\Models\Interfaces\ShipmentDetailInterface;
 use Illuminate\Database\Eloquent\Model;
 
-interface IShipping
+interface ShippingManagerInterface
 {
     /**
      * @param Model $item
      * @param Model $toAddress
-     * @return IShipmentDetail
+     * @return ShipmentDetailInterface
      * @internal param int $itemId
      * @internal param int $userId
      */
-    public function getCheapestRateShipmentDetail(Model $item, Model $toAddress);
+    public function getCheapestRate($item, $toAddress);
 }

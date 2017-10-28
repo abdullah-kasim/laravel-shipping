@@ -7,7 +7,8 @@
 
 namespace AbdullahKasim\LaravelShipping\Models;
 
-use AbdullahKasim\LaravelShipping\Models\Interfaces\IShipmentDetail;
+use AbdullahKasim\LaravelShipping\Models\Interfaces\ShipmentDetailInterface;
+use AbdullahKasim\LaravelShipping\Models\Traits\DefaultShipmentDetailTraits;
 use Illuminate\Database\Eloquent\Model;
 use Reliese\Database\Eloquent\Model as Eloquent;
 
@@ -28,8 +29,10 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  *
  *
  */
-class ShipmentDetail extends Eloquent implements IShipmentDetail
+class ShipmentDetail extends Eloquent implements ShipmentDetailInterface
 {
+    use DefaultShipmentDetailTraits;
+
 	protected $casts = [
 		'shipper_id' => 'int',
 		'from_address_id' => 'int',
@@ -43,10 +46,6 @@ class ShipmentDetail extends Eloquent implements IShipmentDetail
 		'to_address_id',
 		'cost'
 	];
-
-	public function getCost() {
-	    return $this->cost;
-    }
 
 	public function from_address()
 	{
@@ -62,15 +61,4 @@ class ShipmentDetail extends Eloquent implements IShipmentDetail
 	{
 		return $this->belongsTo(Shipper::class);
 	}
-
-    public function getFromAddress()
-    {
-        return $this->from_address;
-    }
-
-    /** @return Model */
-    public function getShipper()
-    {
-        return $this->shipper;
-    }
 }

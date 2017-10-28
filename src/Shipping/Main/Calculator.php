@@ -10,29 +10,28 @@ namespace AbdullahKasim\LaravelShipping\Shipping\Main;
 
 
 use AbdullahKasim\LaravelShipping\Models\Address;
-use AbdullahKasim\LaravelShipping\Models\Interfaces\IShipmentDetail;
+use AbdullahKasim\LaravelShipping\Models\Interfaces\ShipmentDetailInterface;
 use AbdullahKasim\LaravelShipping\Models\Item;
 use AbdullahKasim\LaravelShipping\Models\ShipmentDetail;
 use AbdullahKasim\LaravelShipping\Models\User;
 use AbdullahKasim\LaravelShipping\Shipping\Main\Exceptions\NoShipmentFound;
-use AbdullahKasim\LaravelShipping\Shipping\Main\Interfaces\ICalculator;
+use AbdullahKasim\LaravelShipping\Shipping\Main\Interfaces\CalculatorInterface;
 use Illuminate\Database\Eloquent\Model;
 
-class Calculator implements ICalculator
+class Calculator implements CalculatorInterface
 {
 
     /**
      * @param Model|Item $item
-     * @param Model|Address $toAddress
-     * @return IShipmentDetail
+     * @param User $user
+     * @return ShipmentDetail
      * @throws NoShipmentFound
+     * @internal param User $toAddress
      */
-    public function getCheapestRateShipmentDetail(Model $item, Model $toAddress)
+    public function getCheapestRate($item, $user)
     {
-        // Assume that we already have the ShipmentDetail mapping. Hence, this should be simple.
-        // Let's find out where the item is. This will be the fromAddress.
         $shipmentDetails = ShipmentDetail::whereFromAddressId($item->address_id)
-            ->whereToAddressId($toAddress->id)
+            ->whereIn('address_id', $user->addresses()->allRelatedIds()->toArray())
             ->orderBy('cost')
             ->get();
         if ($shipmentDetails->isEmpty()) {

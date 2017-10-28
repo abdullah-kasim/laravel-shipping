@@ -9,9 +9,9 @@
 namespace AbdullahKasim\LaravelShipping\Shipping\Main\Interfaces;
 
 
-use AbdullahKasim\LaravelShipping\Models\Interfaces\IShipmentDetail;
+use AbdullahKasim\LaravelShipping\Models\Interfaces\ShipmentDetailInterface;
 use Illuminate\Database\Eloquent\Model;
 
-interface ICalculator extends IShipping
+interface CalculatorInterface extends ShippingManagerInterface
 {
 }
