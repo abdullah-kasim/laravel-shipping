@@ -23,7 +23,7 @@ class Validations
     const ITEM_NAME = 'required|min:0|max:250|'.self::REGEX_DEFAULT_NAME;
     const META = 'json';
     const USER_ACTUAL_NAME = 'required|min:0|max:50|'.self::REGEX_DEFAULT_NAME;
-    const EMAIL = 'required|email';
+    const EMAIL = 'required|email|unique:users,email';
     const PASSWORD = 'required|min:6|max:250|password';
     const ADDRESS_FIELD = 'min:10|max:250|'.self::REGEX_DEFAULT_NAME;
 }

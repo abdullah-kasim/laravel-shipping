@@ -5,6 +5,19 @@
 ```bash
 # install the package
 
+# publish the migration and the seeder
+php artisan vendor:publish --tag=migrations
+php artisan vendor:publish --tag=seeders
+
+# do a migration
+php artisan migrate
+
+# for testing, run this seeder
+php artisan db:seed --classs=TestSeeder
+
+# to enable the test api that are prefixed with /tests (see routes/tests.php) (don't do this in production!)
+echo "LARAVEL_SHIPPING_TESTING=true" >> .env
+
 ```
 
 # dev

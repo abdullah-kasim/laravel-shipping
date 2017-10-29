@@ -6,6 +6,8 @@ use AbdullahKasim\LaravelShipping\Models\Address;
 use AbdullahKasim\LaravelShipping\Models\Customer;
 use AbdullahKasim\LaravelShipping\Models\Item;
 use AbdullahKasim\LaravelShipping\Models\Merchant;
+use AbdullahKasim\LaravelShipping\Models\ShipmentDetail;
+use AbdullahKasim\LaravelShipping\Models\Shipper;
 use AbdullahKasim\LaravelShipping\Models\User;
 use AbdullahKasim\LaravelShipping\Shipping\Http\Controllers\DuckTypes\AddCustomer;
 use AbdullahKasim\LaravelShipping\Shipping\Http\Controllers\DuckTypes\AddMerchant;
@@ -144,7 +146,17 @@ class ShipperController extends Controller
                 'data' => $validator->errors()->toArray(),
             ], 422);
         }
-
+        $shipmentDetail = new ShipmentDetail();
+        $shipmentDetail->from_address_id = $request->from_address_id;
+        $shipmentDetail->to_address_id = $request->to_address_id;
+        $shipmentDetail->cost = $request->cost;
+        $shipper = Shipper::find($request->shipper_id);
+        // running this function is completely pointless. You could just assign shipper_id and then save.
+        $returnedShipmentDetail = $shippingManager->addShipmentDetail($shipper,$shipmentDetail);
+        return \Response::json([
+            'meta' => (array) new MetaStatusTrue(),
+            'data' => $returnedShipmentDetail->toArray(),
+        ]);
     }
 
     /**
@@ -163,7 +175,7 @@ class ShipperController extends Controller
                 'data' => $validator->errors()->toArray(),
             ], 422);
         }
-        $customer = $shippingManager->addCustomer(User::find($validationObj->user_id));
+        $customer = $shippingManager->addCustomer(User::find($request->user_id));
         $meta = new MetaStatusTrue();
         return \Response::json([
             'meta' => (array)$meta,
