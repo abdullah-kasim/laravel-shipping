@@ -10,6 +10,7 @@ namespace AbdullahKasim\LaravelShipping\Shipping\Main;
 
 
 use AbdullahKasim\LaravelShipping\Models\Address;
+use AbdullahKasim\LaravelShipping\Models\Customer;
 use AbdullahKasim\LaravelShipping\Models\Interfaces\ShipmentDetailInterface;
 use AbdullahKasim\LaravelShipping\Models\Item;
 use AbdullahKasim\LaravelShipping\Models\ShipmentDetail;
@@ -23,15 +24,15 @@ class Calculator implements CalculatorInterface
 
     /**
      * @param Model|Item $item
-     * @param User $user
+     * @param Address $toAddress
      * @return ShipmentDetail
      * @throws NoShipmentFound
      * @internal param User $toAddress
      */
-    public function getCheapestRate($item, $user)
+    public function getCheapestRate($item, $toAddress)
     {
         $shipmentDetails = ShipmentDetail::whereFromAddressId($item->address_id)
-            ->whereIn('address_id', $user->addresses()->allRelatedIds()->toArray())
+            ->where('address_id', $toAddress->id)
             ->orderBy('cost')
             ->get();
         if ($shipmentDetails->isEmpty()) {

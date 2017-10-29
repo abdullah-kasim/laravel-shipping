@@ -14,6 +14,7 @@ use AbdullahKasim\LaravelShipping\Models\User;
 use AbdullahKasim\LaravelShipping\Models\UserAddress;
 use AbdullahKasim\LaravelShipping\Shipping\Main\Interfaces\CalculatorInterface;
 use AbdullahKasim\LaravelShipping\Shipping\Main\Interfaces\ShippingManagerInterface;
+use AbdullahKasim\LaravelShipping\Shipping\Main\Obj\AddressDetails;
 use Illuminate\Database\Eloquent\Model;
 
 
@@ -43,14 +44,21 @@ class ShippingManager implements ShippingManagerInterface
 
     /**
      * @param Item $item
-     * @param Address $user
+     * @param Address $toAddress
      * @return ShipmentDetailInterface|ShipmentDetail
-     * @internal param int $itemId
-     * @internal param int $userId
      */
-    public function getCheapestRate($item, $user)
+    public function getCheapestRate($item, $toAddress)
     {
-        return $this->calculator->getCheapestRate($item, $user);
+        return $this->calculator->getCheapestRate($item, $toAddress);
+    }
+
+    /**
+     * @param Customer $customer
+     * @return Address[]|\Illuminate\Database\Eloquent\Collection
+     */
+    public function getAddresses($customer)
+    {
+        return $customer->user->addresses;
     }
 
     /**
@@ -95,7 +103,7 @@ class ShippingManager implements ShippingManagerInterface
 
     /**
      * @param User $user
-     * @param \AddressDetails $addressDetails
+     * @param AddressDetails $addressDetails
      * @return UserAddress
      */
     public function addUserAddress($user, $addressDetails)

@@ -1,5 +1,6 @@
 <?php
 
+namespace AbdullahKasim\LaravelShipping\Shipping\Main\Obj;
 
 class AddressDetails
 {

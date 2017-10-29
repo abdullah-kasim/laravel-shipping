@@ -21,9 +21,6 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * 
- * @property \Illuminate\Database\Eloquent\Collection $customers
- * @property \Illuminate\Database\Eloquent\Collection $merchants
- * @property \Illuminate\Database\Eloquent\Collection $shippers
  * @property \Illuminate\Database\Eloquent\Collection $addresses
  *
  *

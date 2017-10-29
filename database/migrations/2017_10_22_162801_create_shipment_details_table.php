@@ -21,7 +21,7 @@ class CreateShipmentDetailsTable extends Migration
             $table->foreign('shipper_id')->references('id')->on('shippers')->onDelete('CASCADE');
             $table->foreign('from_address_id')->references('id')->on('addresses')->onDelete('CASCADE');
             $table->foreign('to_address_id')->references('id')->on('addresses')->onDelete('CASCADE');
-            $table->integer('cost');
+            $table->double('cost');
             $table->timestamps();
             $table->unique(['shipper_id', 'from_address_id', 'to_address_id']); // To preserve database sanity
         });

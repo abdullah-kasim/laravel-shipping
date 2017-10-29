@@ -37,7 +37,7 @@ class ShipmentDetail extends Eloquent implements ShipmentDetailInterface
 		'shipper_id' => 'int',
 		'from_address_id' => 'int',
 		'to_address_id' => 'int',
-		'cost' => 'int'
+		'cost' => 'double'
 	];
 
 	protected $fillable = [

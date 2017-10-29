@@ -20,8 +20,8 @@ class CreateItemsTable extends Migration
             $table->unsignedInteger('address_id');
             $table->foreign('merchant_id')->references('id')->on('merchants')->onDelete('CASCADE');
             $table->foreign('address_id')->references('id')->on('addresses')->onDelete('CASCADE');
-            $table->integer('stock');
-            $table->longText('meta');
+            $table->integer('stock')->default(0);
+            $table->longText('meta')->nullable()->default(null);
             $table->softDeletes();
             $table->timestamps();
         });

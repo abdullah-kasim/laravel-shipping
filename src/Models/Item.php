@@ -17,6 +17,7 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property int $merchant_id
  * @property int $address_id
  * @property int $stock
+ * @property string $meta
  * @property string $deleted_at
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
@@ -40,7 +41,8 @@ class Item extends Eloquent
 		'name',
 		'merchant_id',
 		'address_id',
-		'stock'
+		'stock',
+        'meta'
 	];
 
 	public function address()

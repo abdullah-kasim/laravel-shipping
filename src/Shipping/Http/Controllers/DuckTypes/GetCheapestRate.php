@@ -7,6 +7,6 @@ use AbdullahKasim\LaravelShipping\Shipping\Http\Controllers\Shipper\DuckTypes\Tr
 
 class GetCheapestRate
 {
-    use UserIdTrait;
+    public $address_id;
     public $item_id;
 }
