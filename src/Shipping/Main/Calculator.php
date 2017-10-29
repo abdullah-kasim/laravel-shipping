@@ -32,7 +32,7 @@ class Calculator implements CalculatorInterface
     public function getCheapestRate($item, $toAddress)
     {
         $shipmentDetails = ShipmentDetail::whereFromAddressId($item->address_id)
-            ->where('address_id', $toAddress->id)
+            ->whereToAddressId($toAddress->id)
             ->orderBy('cost')
             ->get();
         if ($shipmentDetails->isEmpty()) {

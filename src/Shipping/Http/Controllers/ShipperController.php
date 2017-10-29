@@ -2,6 +2,7 @@
 
 namespace AbdullahKasim\LaravelShipping\Shipping\Http\Controllers;
 
+use AbdullahKasim\LaravelShipping\Models\Address;
 use AbdullahKasim\LaravelShipping\Models\Customer;
 use AbdullahKasim\LaravelShipping\Models\Item;
 use AbdullahKasim\LaravelShipping\Models\Merchant;
@@ -41,7 +42,8 @@ class ShipperController extends Controller
                 'data' => $validator->errors()->toArray(),
             ], 422);
         }
-        $addresses = $shippingManager->getAddresses($request->user_id);
+        $customer = Customer::whereUserId($request->user_id);
+        $addresses = $shippingManager->getAddresses(Customer::whereUserId($request->user_id)->first());
         return \Response::json([
             'meta' => (array)new MetaStatusTrue(),
             'data' => $addresses->toArray(),
@@ -56,7 +58,7 @@ class ShipperController extends Controller
     public function getCheapestRate(Request $request, ShippingManager $shippingManager)
     {
         $validationObj = new GetCheapestRate();
-        $validationObj->address_id = Validations::CUSTOMER_ID;
+        $validationObj->address_id = Validations::ADDRESS_ID;
         $validationObj->item_id = Validations::ITEM_ID;
         $validator = \Validator::make($request->toArray(), (array)$validationObj);
         if ($validator->fails()) {
@@ -65,9 +67,9 @@ class ShipperController extends Controller
                 'data' => $validator->errors()->toArray(),
             ], 422);
         }
-        $user = Customer::find($validationObj->address_id)->user;
-        $item = Item::find($validationObj->item_id);
-        $shipmentDetails = $shippingManager->getCheapestRate($item, $user);
+        $toAddress = Address::find($request->address_id);
+        $item = Item::find($request->item_id);
+        $shipmentDetails = $shippingManager->getCheapestRate($item, $toAddress);
         $meta = new MetaStatusTrue();
         return \Response::json([
             'meta' => (array)$meta,
@@ -181,7 +183,10 @@ class ShipperController extends Controller
         $validationObj->user_id = Validations::USER_ID;
         $validationObj->country_id = Validations::COUNTRY_ID;
         $validationObj->zip_code = Validations::ZIP_CODE;
-        $validator = \Validator::make($request->toArray(), (array)$validationObj);
+        $validationObj->address_1 = 'required|'.Validations::ADDRESS_FIELD;
+        $validationObj->address_2 = Validations::ADDRESS_FIELD;
+        $validationObj->address_3 = Validations::ADDRESS_FIELD;
+        $validator = \Validator::make($request->toArray(), (array) $validationObj);
         if ($validator->fails()) {
             return \Response::json([
                 'meta' => (array)new MetaStatusFalse(),
@@ -195,6 +200,8 @@ class ShipperController extends Controller
         $addressDetails->address2 = $request->address_2;
         $addressDetails->address3 = $request->address_3;
         $address = $shippingManager->addUserAddress(User::find($request->user_id), $addressDetails);
+        $address->load('address');
+
         return \Response::json([
             'meta' => (array)new MetaStatusTrue(),
             'data' => $address->toArray(),
@@ -258,6 +265,7 @@ class ShipperController extends Controller
         $user->name = $request->name;
         $user->email = $request->email;
         $user->password = bcrypt($request->password);
+        $user->save();
         return \Response::json([
             'meta' => (array) new MetaStatusTrue(),
             'data' => $user->toArray(),
