@@ -1,6 +1,6 @@
 <?php
 
-namespace AbdullahKasim\LaravelShipping\Shipping\Http\Controllers\Shipper\DuckTypes;
+namespace AbdullahKasim\LaravelShipping\Shipping\Http\Controllers\DuckTypes;
 
 
 class AddItem

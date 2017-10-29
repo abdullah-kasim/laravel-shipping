@@ -1,6 +1,6 @@
 <?php
 
-namespace AbdullahKasim\LaravelShipping\Shipping\Http\Controllers\Shipper\DuckTypes\Traits;
+namespace AbdullahKasim\LaravelShipping\Shipping\Http\Controllers\DuckTypes\Traits;
 
 
 trait UserIdTrait

@@ -1,9 +1,9 @@
 <?php
 
-namespace AbdullahKasim\LaravelShipping\Shipping\Http\Controllers\Shipper\DuckTypes;
+namespace AbdullahKasim\LaravelShipping\Shipping\Http\Controllers\DuckTypes;
 
 
-use AbdullahKasim\LaravelShipping\Shipping\Http\Controllers\Shipper\DuckTypes\Traits\UserIdTrait;
+use AbdullahKasim\LaravelShipping\Shipping\Http\Controllers\DuckTypes\Traits\UserIdTrait;
 
 class GetCheapestRate
 {

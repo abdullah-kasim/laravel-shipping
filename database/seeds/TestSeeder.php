@@ -18,7 +18,7 @@ class TestSeeder extends Seeder
      */
     public function run()
     {
-        $totalCustomers = 100;
+        $totalCustomers = 10;
         $totalShippers = 10;
         $totalMerchants = 10;
         $itemsPerMerchant = 10;

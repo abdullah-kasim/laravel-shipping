@@ -12,10 +12,11 @@ use AbdullahKasim\LaravelShipping\Shipping\Http\Controllers\DuckTypes\AddShipmen
 use AbdullahKasim\LaravelShipping\Shipping\Http\Controllers\DuckTypes\AddShipper;
 use AbdullahKasim\LaravelShipping\Shipping\Http\Controllers\DuckTypes\AddUserAddress;
 use AbdullahKasim\LaravelShipping\Shipping\Http\Controllers\Obj\MetaStatusFalse;
-use AbdullahKasim\LaravelShipping\Shipping\Http\Controllers\Shipper\DuckTypes\AddItem;
-use AbdullahKasim\LaravelShipping\Shipping\Http\Controllers\Shipper\DuckTypes\AddUser;
-use AbdullahKasim\LaravelShipping\Shipping\Http\Controllers\Shipper\DuckTypes\GetAddresses;
-use AbdullahKasim\LaravelShipping\Shipping\Http\Controllers\Shipper\DuckTypes\GetCheapestRate;
+use AbdullahKasim\LaravelShipping\Shipping\Http\Controllers\Obj\MetaStatusTrue;
+use AbdullahKasim\LaravelShipping\Shipping\Http\Controllers\DuckTypes\AddItem;
+use AbdullahKasim\LaravelShipping\Shipping\Http\Controllers\DuckTypes\AddUser;
+use AbdullahKasim\LaravelShipping\Shipping\Http\Controllers\DuckTypes\GetAddresses;
+use AbdullahKasim\LaravelShipping\Shipping\Http\Controllers\DuckTypes\GetCheapestRate;
 use AbdullahKasim\LaravelShipping\Shipping\Http\Controllers\Validations\Validations;
 use AbdullahKasim\LaravelShipping\Shipping\Main\Obj\AddressDetails;
 use AbdullahKasim\LaravelShipping\Shipping\Main\ShippingManager;
@@ -238,6 +239,7 @@ class ShipperController extends Controller
      *
      * @param Request|AddUser $request
      * @param ShippingManager $shippingManager
+     * @return \Illuminate\Http\JsonResponse
      */
     public function addUser(Request $request, ShippingManager $shippingManager)
     {
@@ -245,5 +247,20 @@ class ShipperController extends Controller
         $validationObj->name = Validations::USER_ACTUAL_NAME;
         $validationObj->email = Validations::EMAIL;
         $validationObj->password = Validations::PASSWORD;
+        $validator = \Validator::make($request->toArray(), (array)$validationObj);
+        if ($validator->fails()) {
+            return \Response::json([
+                'meta' => (array)new MetaStatusFalse(),
+                'data' => $validator->errors()->toArray(),
+            ], 422);
+        }
+        $user = new User();
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->password = bcrypt($request->password);
+        return \Response::json([
+            'meta' => (array) new MetaStatusTrue(),
+            'data' => $user->toArray(),
+        ]);
     }
 }
