@@ -20,6 +20,19 @@ echo "LARAVEL_SHIPPING_TESTING=true" >> .env
 
 ```
 
+Then, in your php code:
+
+```php
+<?php
+
+class SomeClass {
+  public function someFunc(ShippingManager $manager, $item, $toAddress) {
+    $manager->getCheapestRate($item, $toAddress);
+  }
+}
+
+```
+
 # dev
 
 If you need to do dev on this, create a laravel project, and put the root in -
